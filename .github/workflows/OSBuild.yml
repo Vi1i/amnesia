@@ -30,17 +30,11 @@ jobs:
   apple_build:
     runs-on: macos-latest
     steps:
-      - name: Install Vulkan Depenancies
-        run: |
-          curl -o vulkansdk-macos-1.1.130.0.tar.gz https://sdk.lunarg.com/sdk/download/1.1.130.0/mac/vulkansdk-macos-1.1.130.0.tar.gz?u=
-          tar -xvf vulkansdk-macos-1.1.130.0.tar.gz
-          cd vulkansdk-macos-1.1.130.0
-          python install_vulkan.py --force-install
-          cd -
       - name: Install GLFW Depenancies
         run: |
           brew update
           brew install glfw3
+          brew cask install apenngrace/vulkan/vulkan-sdk
       - uses: actions/checkout@v2
       - name: Generate Build Files
         run: |
