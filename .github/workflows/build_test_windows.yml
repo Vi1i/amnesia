@@ -1,0 +1,20 @@
+name: Windows Build
+on:
+  push:
+    branches: 
+      - master
+jobs:
+  windows_build:
+    runs-on: windows-latest
+    steps:
+      - name: Install Depenancies
+        run: UhOh
+      - uses: actions/checkout@v2
+      - name: Generate Build Files
+        run: |
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Debug
+      - name: Build
+        run: |
+          cd build
+          make -j 2
