@@ -7,7 +7,7 @@ jobs:
       - name: Install Depenancies
         run: |
           sudo apt update
-          sudo apt -y install libvulkan1 mesa-vulkan-drivers vulkan-utils
+          sudo apt -y install libvulkan1 mesa-vulkan-drivers vulkan-utils vulkan-tools libvulkan-dev
       - uses: actions/checkout@v2
       - name: Change directories
         run: cd build
