@@ -30,7 +30,7 @@ jobs:
   apple_build:
     runs-on: macos-latest
     steps:
-      - name: Install GLFW Depenancies
+      - name: Install Depenancies
         run: |
           brew update
           brew install glfw3
