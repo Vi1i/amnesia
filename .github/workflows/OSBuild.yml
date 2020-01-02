@@ -12,26 +12,35 @@ jobs:
       - name: Change directories
         run: cd build
       - name: cmake
-        run: cmake -DCMAKE_BUILD_TYPE=Debug
+        run: cmake .. -DCMAKE_BUILD_TYPE=Debug
       - name: make
         run: make
-  windows_build:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Change directories
-        run: cd build
-      - name: cmake
-        run: cmake -DCMAKE_BUILD_TYPE=Debug
-      - name: make
-        run: make
+#  windows_build:
+#    runs-on: windows-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Change directories
+#        run: cd build
+#      - name: cmake
+#        run: cmake .. -DCMAKE_BUILD_TYPE=Debug
+#      - name: make
+#        run: make
   apple_build:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
+      - name: Install Depenancies
+        run: |
+          brew update
+          brew install glfw3
+          curl -o vulkansdk-macos-1.1.130.0.tar.gz https://sdk.lunarg.com/sdk/download/1.1.130.0/mac/vulkansdk-macos-1.1.130.0.tar.gz?u=
+          tar -xvf vulkansdk-macos-1.1.130.0.tar.gz
+          cd vulkansdk-macos-1.1.130.0
+          python install_vulkan.py
+          cd -
       - uses: actions/checkout@v2
       - name: Change directories
         run: cd build
       - name: cmake
-        run: cmake -DCMAKE_BUILD_TYPE=Debug
+        run: cmake .. -DCMAKE_BUILD_TYPE=Debug
       - name: make
         run: make
