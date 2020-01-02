@@ -1,0 +1,23 @@
+name: MacOS Build
+on:
+  push:
+    branches: 
+      - master
+jobs:
+  apple_build:
+    runs-on: macos-latest
+    steps:
+      - name: Install Depenancies
+        run: |
+          brew update
+          brew install glfw3
+          brew cask install apenngrace/vulkan/vulkan-sdk
+      - uses: actions/checkout@v2
+      - name: Generate Build Files
+        run: |
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Debug
+      - name: Build
+        run: |
+          cd build
+          make -j 2
