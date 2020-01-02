@@ -1,5 +1,8 @@
 name: OS Build
-on: [push]
+on:
+  push:
+    branches: 
+      - master
 jobs:
   linux_build:
     runs-on: ubuntu-latest
