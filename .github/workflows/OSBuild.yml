@@ -1,15 +1,17 @@
-name: C/C++ CI
-
+name: OS Build
 on: [push]
-
 jobs:
   linux_build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Change directories
-      run: cd build
-    - name: cmake
-      run: cmake -DCMAKE_BUILD_RELEASE=Debug
-    - name: make
-      run: make
+      - name: Install Depenancies
+        run: |
+          sudo apt update
+          sudo libvulkan1 mesa-vulkan-drivers vulkan-utils vulkan-validationlayers vulkan-validationlayers-dev
+      - uses: actions/checkout@v2
+      - name: Change directories
+        run: cd build
+      - name: cmake
+        run: cmake -DCMAKE_BUILD_RELEASE=Debug
+      - name: make
+        run: make
