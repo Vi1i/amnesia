@@ -15,3 +15,23 @@ jobs:
         run: cmake -DCMAKE_BUILD_TYPE=Debug
       - name: make
         run: make
+  windows_build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Change directories
+        run: cd build
+      - name: cmake
+        run: cmake -DCMAKE_BUILD_TYPE=Debug
+      - name: make
+        run: make
+  apple_build:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Change directories
+        run: cd build
+      - name: cmake
+        run: cmake -DCMAKE_BUILD_TYPE=Debug
+      - name: make
+        run: make
