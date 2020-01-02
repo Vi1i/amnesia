@@ -1,0 +1,22 @@
+name: OS Build
+on:
+  push:
+    branches: 
+      - master
+jobs:
+  linux_build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Depenancies
+        run: |
+          sudo apt update
+          sudo apt -y install libvulkan1 mesa-vulkan-drivers vulkan-utils libvulkan-dev libglfw3 libglfw3-dev
+      - uses: actions/checkout@v2
+      - name: Generate Build Files
+        run: |
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Debug
+      - name: Build
+        run: |
+          cd build
+          make -j 2
