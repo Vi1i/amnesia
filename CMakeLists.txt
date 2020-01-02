@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.7)
-project(amnesia VERSION 0.1.0 LANGUAGES CXX)
+project(Amnesia VERSION 0.1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -29,15 +29,15 @@ find_package(GLFW REQUIRED)
 ##############################################
 # Create target and set properties
 
-add_library(amnesia SHARED
+add_library(Amnesia SHARED
   src/core.cpp
 )
 
 #Add an alias so that library can be used inside the build tree, e.g. when testing
-add_library(Amnesia::Amnesia ALIAS amnesia)
+add_library(Amnesia::Amnesia ALIAS Amnesia)
 
 #Set target properties
-target_include_directories(amnesia
+target_include_directories(Amnesia
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -47,7 +47,7 @@ target_include_directories(amnesia
     ${GLFW_INCLUDE_DIR}
 )
 
-target_link_libraries(amnesia
+target_link_libraries(Amnesia
   PUBLIC
   PRIVATE
     Vulkan::Vulkan
@@ -60,22 +60,21 @@ target_link_libraries(amnesia
 include(GNUInstallDirs)
 set(INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/Amnesia)
 
-install(TARGETS amnesia
-    EXPORT amnesia-targets
+install(TARGETS Amnesia
+    EXPORT Amnesia-targets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
 #This is required so that the exported target has the name Amnesia and not amnesia
-set_target_properties(amnesia PROPERTIES
+set_target_properties(Amnesia PROPERTIES
   EXPORT_NAME Core
-  OUTPUT_NAME "Amnesia"
 )
 
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 #Export the targets to a script
-install(EXPORT amnesia-targets
+install(EXPORT Amnesia-targets
   FILE
   AmnesiaTargets.cmake
   NAMESPACE
@@ -107,17 +106,18 @@ install(FILES
 ##############################################
 ## Exporting from the build tree
 
-export(EXPORT amnesia-targets FILE ${CMAKE_CURRENT_BINARY_DIR}/AmnesiaTargets.cmake NAMESPACE Amnesia::)
+export(EXPORT Amnesia-targets FILE ${CMAKE_CURRENT_BINARY_DIR}/AmnesiaTargets.cmake NAMESPACE Amnesia::)
 
 #Register package in user's package registry
-export(PACKAGE Amnesia)
+#export(PACKAGE Amnesia)
 
 
 ##############################################
-add_executable(Amnesia
+add_executable(amnesiaInfo
   src/app.cpp
 )
-target_link_libraries(Amnesia
+
+target_link_libraries(amnesiaInfo
   PUBLIC
   PRIVATE
     Amnesia::Amnesia
