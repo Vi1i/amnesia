@@ -9,12 +9,14 @@ jobs:
           sudo apt update
           sudo apt -y install libvulkan1 mesa-vulkan-drivers vulkan-utils libvulkan-dev libglfw3 libglfw3-dev
       - uses: actions/checkout@v2
-      - name: Change directories
-        run: cd build
-      - name: cmake
-        run: cmake .. -DCMAKE_BUILD_TYPE=Debug
-      - name: make
-        run: make
+      - name: Generate Build Files
+        run: |
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Debug
+      - name: Build
+        run: |
+          cd build
+          make -j 2
 #  windows_build:
 #    runs-on: windows-latest
 #    steps:
@@ -38,9 +40,11 @@ jobs:
           python install_vulkan.py
           cd -
       - uses: actions/checkout@v2
-      - name: Change directories
-        run: cd build
-      - name: cmake
-        run: cmake .. -DCMAKE_BUILD_TYPE=Debug
-      - name: make
-        run: make
+      - name: Generate Build Files
+        run: |
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Debug
+      - name: Build
+        run: |
+          cd build
+          make -j 2
